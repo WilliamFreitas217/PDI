@@ -54,10 +54,6 @@ void execute_scale_tri(){
     glEnd();
     glPopMatrix();
     glutSwapBuffers();
-    float temp = x;
-    x = y;
-    y = temp;
-
 }
 
 void execute_scale_quad(){
@@ -116,24 +112,19 @@ void execute_scale_circle(){
     else{
         enlarge = true;
     }
-    
-    glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
+    glClear(GL_COLOR_BUFFER_BIT);
+    gluOrtho2D(0.0,800.0,0.0,800.0);
     glScalef(xScale,yScale,1.0f);
-    // glTranslatef(x, 0.0f, 0.0f);
-    // glRotatef(angle, 0.0f, 0.0f, 1.0f);
     float theta;
     int posX = 400;
     int posY = 400;
     int radio = 100;
     glBegin(GL_POLYGON);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f( 0.0f, 0.0f);
-    glVertex2f( 0.0f, 0.3f);
-    glVertex2f( 0.5f, 0.0f);
+    glColor3f(0.0,0.4,0.2);
     for(int i=0; i<360; i++){
         theta = i*3.1416/180;
         glVertex2f(posX + radio*cos(theta), posY + radio*sin(theta));
@@ -141,12 +132,7 @@ void execute_scale_circle(){
     glEnd();
     glPopMatrix();
     glutSwapBuffers();
-    float temp = x;
-    x = y;
-    y = temp;
-
 }
-
 void execute_translate_tri(){
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -192,11 +178,12 @@ void execute_translate_quad(){
 }
 
 void execute_translate_circle(){
-    glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
+    glClear(GL_COLOR_BUFFER_BIT);
+    gluOrtho2D(0.0,800.0,0.0,800.0);
     glTranslatef(x, 0.0f, 0.0f);
     float theta;
     int posX = 400;
@@ -204,9 +191,6 @@ void execute_translate_circle(){
     int radio = 100;
     glBegin(GL_POLYGON);
     glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f( 0.0f, 0.0f);
-    glVertex2f( 0.0f, 0.3f);
-    glVertex2f( 0.5f, 0.0f);
     for(int i=0; i<360; i++){
         theta = i*3.1416/180;
         glVertex2f(posX + radio*cos(theta), posY + radio*sin(theta));
@@ -240,21 +224,19 @@ void execute_rotate_quad(){
 }
 
 void execute_rotate_circle(){
-    glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
+    glClear(GL_COLOR_BUFFER_BIT);
+    gluOrtho2D(0.0,800.0,0.0,800.0);
     float theta;
     int posX = 400;
     int posY = 400;
-    int radio = 100;
+    int radio = 150;
     glRotatef(angle, 0.0f, 0.0f, 1.0f);
     glBegin(GL_POLYGON);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f( 0.0f, 0.0f);
-    glVertex2f( 0.0f, 0.3f);
-    glVertex2f( 0.5f, 0.0f);
+    glColor3f(0.0f, 1.0f, 0.0f);
     for(int i=0; i<360; i++){
         theta = i*3.1416/180;
         glVertex2f(posX + radio*cos(theta), posY + radio*sin(theta));
