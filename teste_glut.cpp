@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-#define maxWD 800
-#define maxHT 800
+#define maxWD 640
+#define maxHT 480
 #define thetaSpeed 0.05
 
 
@@ -21,6 +21,7 @@ void init(void) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0,maxWD,0.0,maxHT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void drawPoint(int x, int y)
@@ -89,6 +90,38 @@ void translatePoint(int px, int py, int tx, int ty)
     }
 }
 
+void scalePoint(int px, int py, int sx, int sy)
+{
+    int fx, fy;
+    while (1) {
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // update
+        fx = px * sx;
+        fy = py * sy;
+
+        drawPoint(fx, fy); // drawing the point
+
+        glFlush();
+        // creating a delay
+        // so that the point can be noticed
+        delay(500);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // update
+        fx = px;
+        fy = py;
+
+        // drawing the point
+        drawPoint(fx, fy);
+        glFlush();
+        // creating a delay
+        // so that the point can be noticed
+        delay(500);
+    }
+}
+
 void lineSegment(void) {
     float theta;
     int posX = 400;
@@ -117,24 +150,22 @@ void myDisplay(void)
     printf("\nGo to the window...");
     switch (opt) {
     case 1:
-        // point will circle around
-        // the centre of the window
         rotateAroundPt(200, 200, maxWD / 2, maxHT / 2);
         break;
     case 2:
         translatePoint(100, 200, 1, 5);
         break;
-    // case 3:
-    //     scalePoint(10, 20, 2, 3);
-    //     break;
+    case 3:
+        scalePoint(10, 20, 2, 3);
+        break;
     }
 }
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowPosition(50,50);
-    glutInitWindowSize(800,800);
+    glutInitWindowPosition(100,150);
+    glutInitWindowSize(maxWD,maxHT);
     glutCreateWindow("Hello World!");
     init();
     glutDisplayFunc(myDisplay);
