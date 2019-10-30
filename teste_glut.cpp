@@ -11,7 +11,7 @@ using namespace std;
 GLfloat angle = 45.0f;
 GLfloat x = 0.5f;
 GLfloat y = 0.0f;
-GLfloat xScale = 0.01f; 
+GLfloat xScale = 0.01f;
 GLfloat yScale = 0.01f;
 bool enlarge = true;
 int refreshmill = 2;
@@ -25,7 +25,7 @@ void execute_scale_tri(){
     if (enlarge && xScale <2.0f){
         xScale += 0.01f;
         yScale += 0.01f;
-    } 
+    }
     else{
         enlarge = false;
     }
@@ -33,11 +33,11 @@ void execute_scale_tri(){
     if (enlarge == false && xScale >0.0f){
         xScale -= 0.01f;
         yScale -= 0.01f;
-    } 
+    }
     else{
         enlarge = true;
     }
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
@@ -60,7 +60,7 @@ void execute_scale_quad(){
     if (enlarge && xScale <2.0f){
         xScale += 0.01f;
         yScale += 0.01f;
-    } 
+    }
     else{
         enlarge = false;
     }
@@ -68,11 +68,11 @@ void execute_scale_quad(){
     if (enlarge == false && xScale >0.0f){
         xScale -= 0.01f;
         yScale -= 0.01f;
-    } 
+    }
     else{
         enlarge = true;
     }
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
@@ -100,7 +100,7 @@ void execute_scale_circle(){
     if (enlarge && xScale <2.0f){
         xScale += 0.01f;
         yScale += 0.01f;
-    } 
+    }
     else{
         enlarge = false;
     }
@@ -108,7 +108,7 @@ void execute_scale_circle(){
     if (enlarge == false && xScale >0.0f){
         xScale -= 0.01f;
         yScale -= 0.01f;
-    } 
+    }
     else{
         enlarge = true;
     }
@@ -320,7 +320,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_rotate_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_rotate_quad);
                 break;
@@ -341,7 +341,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_translate_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_translate_quad);
                 break;
@@ -362,7 +362,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_scale_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_scale_quad);
                 break;
