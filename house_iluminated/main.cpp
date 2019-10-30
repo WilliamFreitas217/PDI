@@ -64,9 +64,9 @@ void loadObj(char *fname){
         exit(1);
     }
     glPointSize(2.0);
-    //glNewList(elephant, GL_COMPILE);
+    glNewList(elephant, GL_COMPILE);
     glPushMatrix();
-    glBegin(GL_POLYGON);
+    glBegin(GL_LINE_STRIP);
     while(!(feof(fp))){
         char ch[128];
         fscanf(fp, "%s", ch);
@@ -78,13 +78,13 @@ void loadObj(char *fname){
             fscanf(fp, "%f %f %f\n", &x, &y, &z);
             glVertex3f(x,y, z);
         }
-        //if ( strcmp( ch, "f" ) == 0 ){
-        //    unsigned int x1, x2, x3, y1, y2 ,y3, z1, z2, z3;
-        //    fscanf(fp, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &x1, &y1, &z1,&x2, &y2, &z2, &x3, &y3, &z3);
-        //    glVertex3d(x1,y1, z1);
-        //    glVertex3d(x2,y2, z2);
-        //    glVertex3d(x3,y3, z3);
-        //}
+        if ( strcmp( ch, "f" ) == 0 ){
+            unsigned int x1, x2, x3, y1, y2 ,y3, z1, z2, z3;
+            fscanf(fp, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &x1, &y1, &z1,&x2, &y2, &z2, &x3, &y3, &z3);
+            glVertex3d(x1,y1, z1);
+            glVertex3d(x2,y2, z2);
+            glVertex3d(x3,y3, z3);
+        }
     }
     glEnd();
     glPopMatrix();
@@ -193,7 +193,7 @@ int main(int argc,char **argv)
 	glutReshapeFunc(reshape);
     glutDisplayFunc(display);
 	glutIdleFunc(idleFunc);
-    loadObj("/home/haziel/Downloads/tej7ntrwa7sw-Cyprys_All_Format/Cyprys_House_obj/Cyprys_House.obj");//replace elepham.obj withp orsche.obj or radar.obj or any other .obj to display it
+    loadObj("/home/indtusuario/UEA/PDI/house_iluminated/Cyprys_House_obj/Cyprys_House.obj");//replace elepham.obj withp orsche.obj or radar.obj or any other .obj to display it
 	glutMainLoop();
 	return 0;
 }
