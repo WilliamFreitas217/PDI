@@ -9,10 +9,10 @@ using namespace std;
 #define thetaSpeed 0.05
 
 GLfloat angle = 45.0f;//*3.1416/180;
-GLfloat x = 0.5f;
+GLfloat x = 200.0f;
 GLfloat y = 0.0f;
-GLfloat xScale = 0.01f; 
-GLfloat yScale = 0.01f;
+GLfloat xScale = 0.1f;
+GLfloat yScale = 0.1f;
 bool enlarge = true;
 int refreshmill = 2;
 // const float t = -0.6;
@@ -40,7 +40,7 @@ void execute_rotate_tri(){
     glEnd();
     glPopMatrix();
     glutSwapBuffers();
-    angle+=0.2;
+    angle+=0.005;
 }
 
 void execute_rotate_quad(){
@@ -64,7 +64,7 @@ void execute_rotate_quad(){
     glEnd();
     glPopMatrix();
     glutSwapBuffers();
-    angle+=0.2;
+    angle+=0.005;
 }
 
 void execute_rotate_circle(){
@@ -73,10 +73,10 @@ void execute_rotate_circle(){
     glLoadIdentity();
     glPushMatrix();
     glClear(GL_COLOR_BUFFER_BIT);
-    gluOrtho2D(0.0,800.0,0.0,800.0);
+    gluOrtho2D(0.0,1000.0,0.0,1000.0);
     float theta;
-    int posX = 400;
-    int posY = 400;
+    int posX = 500;
+    int posY = 500;
     int radio = 150;
     float xs;
     float ys;
@@ -87,12 +87,13 @@ void execute_rotate_circle(){
             theta = i*3.1416/180;
             xs = posX + radio*cos(theta);
             ys = posY + radio*sin(theta);
-            glVertex2f(xs*cos(angle)-y*sin(angle), xs*sin(angle)+ys*cos(angle));
+            //glVertex2f(xs, ys);
+            glVertex2f(xs*cos(angle)-ys*sin(angle), xs*sin(angle)+ys*cos(angle));
         }
     glEnd();
     glPopMatrix();
     glutSwapBuffers();
-    angle+=0.2;
+    angle+=0.005;
 }
 
 
@@ -169,7 +170,7 @@ void execute_scale_tri(){
     if (enlarge && xScale <2.0f){
         xScale += 0.01f;
         yScale += 0.01f;
-    } 
+    }
     else{
         enlarge = false;
     }
@@ -177,11 +178,11 @@ void execute_scale_tri(){
     if (enlarge == false && xScale >0.0f){
         xScale -= 0.01f;
         yScale -= 0.01f;
-    } 
+    }
     else{
         enlarge = true;
     }
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
@@ -201,7 +202,7 @@ void execute_scale_quad(){
     if (enlarge && xScale <2.0f){
         xScale += 0.01f;
         yScale += 0.01f;
-    } 
+    }
     else{
         enlarge = false;
     }
@@ -209,11 +210,11 @@ void execute_scale_quad(){
     if (enlarge == false && xScale >0.0f){
         xScale -= 0.01f;
         yScale -= 0.01f;
-    } 
+    }
     else{
         enlarge = true;
     }
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW);
@@ -235,17 +236,17 @@ void execute_scale_quad(){
 
 void execute_scale_circle(){
     if (enlarge && xScale <2.0f){
-        xScale += 0.01f;
-        yScale += 0.01f;
-    } 
+        xScale += 0.1f;
+        yScale += 0.1f;
+    }
     else{
         enlarge = false;
     }
 
     if (enlarge == false && xScale >0.0f){
-        xScale -= 0.01f;
-        yScale -= 0.01f;
-    } 
+        xScale -= 0.1f;
+        yScale -= 0.1f;
+    }
     else{
         enlarge = true;
     }
@@ -305,7 +306,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_rotate_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_rotate_quad);
                 break;
@@ -326,7 +327,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_translate_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_translate_quad);
                 break;
@@ -347,7 +348,7 @@ void myDisplay(void)
             case 1:
                 glutDisplayFunc(execute_scale_tri);
                 break;
-            
+
             case 2:
                 glutDisplayFunc(execute_scale_quad);
                 break;
