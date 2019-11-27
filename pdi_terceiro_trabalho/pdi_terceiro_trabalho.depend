@@ -1,0 +1,366 @@
+# depslib dependency file v1.0
+1574818804 source:/home/haziel/Programs/PDI/pdi_terceiro_trabalho/main.cpp
+	<GL/glut.h>
+	<math.h>
+	"RgbImage.h"
+
+1523909660 /usr/include/stdlib.h
+	<bits/libc-header-start.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<bits/floatn.h>
+	<bits/types/locale_t.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib-bsearch.h>
+	<bits/stdlib-float.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
+
+1523909660 /usr/include/bits/libc-header-start.h
+	<features.h>
+
+1523909660 /usr/include/features.h
+	<stdc-predef.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
+
+1523909660 /usr/include/stdc-predef.h
+
+1523909660 /usr/include/sys/cdefs.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/long-double.h>
+
+1523909660 /usr/include/bits/wordsize.h
+
+1523909660 /usr/include/bits/long-double.h
+
+1523909660 /usr/include/gnu/stubs.h
+	<gnu/stubs-32.h>
+	<gnu/stubs-64.h>
+	<gnu/stubs-x32.h>
+
+1523909660 /usr/include/gnu/stubs-32.h
+
+1523909660 /usr/include/gnu/stubs-64.h
+
+1523909660 /usr/include/gnu/stubs-x32.h
+
+1523909660 /usr/include/bits/waitflags.h
+
+1523909660 /usr/include/bits/waitstatus.h
+
+1523909660 /usr/include/bits/floatn.h
+	<features.h>
+	<bits/floatn-common.h>
+
+1523909660 /usr/include/bits/floatn-common.h
+	<features.h>
+	<bits/long-double.h>
+
+1523909660 /usr/include/bits/types/locale_t.h
+	<bits/types/__locale_t.h>
+
+1523909660 /usr/include/bits/types/__locale_t.h
+
+1523909660 /usr/include/sys/types.h
+	<features.h>
+	<bits/types.h>
+	<bits/types/clock_t.h>
+	<bits/types/clockid_t.h>
+	<bits/types/time_t.h>
+	<bits/types/timer_t.h>
+	<stddef.h>
+	<bits/stdint-intn.h>
+	<endian.h>
+	<sys/select.h>
+	<sys/sysmacros.h>
+	<bits/pthreadtypes.h>
+
+1523909660 /usr/include/bits/types.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/typesizes.h>
+
+1523909660 /usr/include/bits/typesizes.h
+
+1523909660 /usr/include/bits/types/clock_t.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/types/clockid_t.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/types/time_t.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/types/timer_t.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/stdint-intn.h
+	<bits/types.h>
+
+1523909660 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
+	<bits/uintn-identity.h>
+
+1523909660 /usr/include/bits/endian.h
+
+1523909660 /usr/include/bits/byteswap.h
+	<features.h>
+	<bits/types.h>
+	<bits/wordsize.h>
+	<bits/byteswap-16.h>
+
+1523909660 /usr/include/bits/byteswap-16.h
+
+1523909660 /usr/include/bits/uintn-identity.h
+	<bits/types.h>
+
+1523909660 /usr/include/sys/select.h
+	<features.h>
+	<bits/types.h>
+	<bits/select.h>
+	<bits/types/sigset_t.h>
+	<bits/types/time_t.h>
+	<bits/types/struct_timeval.h>
+	<bits/types/struct_timespec.h>
+	<bits/select2.h>
+
+1523909660 /usr/include/bits/select.h
+	<bits/wordsize.h>
+
+1523909660 /usr/include/bits/types/sigset_t.h
+	<bits/types/__sigset_t.h>
+
+1523909660 /usr/include/bits/types/__sigset_t.h
+
+1523909660 /usr/include/bits/types/struct_timeval.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/types/struct_timespec.h
+	<bits/types.h>
+
+1523909660 /usr/include/bits/select2.h
+
+1523909660 /usr/include/sys/sysmacros.h
+	<features.h>
+	<bits/types.h>
+	<bits/sysmacros.h>
+
+1523909660 /usr/include/bits/sysmacros.h
+
+1523909660 /usr/include/bits/pthreadtypes.h
+	<bits/thread-shared-types.h>
+
+1523909660 /usr/include/bits/thread-shared-types.h
+	<bits/pthreadtypes-arch.h>
+
+1523909660 /usr/include/bits/pthreadtypes-arch.h
+	<bits/wordsize.h>
+
+1523909660 /usr/include/alloca.h
+	<features.h>
+	<stddef.h>
+
+1523909660 /usr/include/bits/stdlib-bsearch.h
+
+1523909660 /usr/include/bits/stdlib-float.h
+
+1523909660 /usr/include/bits/stdlib.h
+
+1523909660 /usr/include/bits/stdlib-ldbl.h
+
+1471978687 /usr/include/GL/glut.h
+	"freeglut_std.h"
+
+1471978687 /usr/include/GL/freeglut_std.h
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1561580048 /usr/include/GL/gl.h
+	"gl_mangle.h"
+	<windows.h>
+	<GL/glext.h>
+
+1561580048 /usr/include/GL/gl_mangle.h
+
+1561580048 /usr/include/GL/glext.h
+	<windows.h>
+	<KHR/khrplatform.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+	<stddef.h>
+
+1561580048 /usr/include/KHR/khrplatform.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1523909660 /usr/include/stdint.h
+	<bits/libc-header-start.h>
+	<bits/types.h>
+	<bits/wchar.h>
+	<bits/wordsize.h>
+	<bits/stdint-intn.h>
+	<bits/stdint-uintn.h>
+
+1523909660 /usr/include/bits/wchar.h
+
+1523909660 /usr/include/bits/stdint-uintn.h
+	<bits/types.h>
+
+1523909660 /usr/include/inttypes.h
+	<features.h>
+	<stdint.h>
+	<stddef.h>
+
+1463869743 /usr/include/GL/glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1463869743 /usr/include/GL/glu_mangle.h
+
+1574807938 /home/haziel/Programs/PDI/pdi_terceiro_trabalho/RgbImage.h
+	<stdio.h>
+	<assert.h>
+
+1523909660 /usr/include/stdio.h
+	<bits/libc-header-start.h>
+	<stddef.h>
+	<bits/types.h>
+	<bits/types/__FILE.h>
+	<bits/types/FILE.h>
+	<bits/libio.h>
+	<stdarg.h>
+	<bits/stdio_lim.h>
+	<bits/sys_errlist.h>
+	<bits/getopt_posix.h>
+	<bits/stdio.h>
+	<bits/stdio2.h>
+	<bits/stdio-ldbl.h>
+
+1523909660 /usr/include/bits/types/__FILE.h
+
+1523909660 /usr/include/bits/types/FILE.h
+
+1523909660 /usr/include/bits/libio.h
+	<bits/_G_config.h>
+	<stdarg.h>
+	<sys/cdefs.h>
+	<shlib-compat.h>
+	<bits/libio-ldbl.h>
+
+1523909660 /usr/include/bits/_G_config.h
+	<bits/types.h>
+	<stddef.h>
+	<bits/types/__mbstate_t.h>
+	<bits/types/wint_t.h>
+	<gconv.h>
+
+1523909660 /usr/include/bits/types/__mbstate_t.h
+
+1523909660 /usr/include/bits/types/wint_t.h
+
+1523909660 /usr/include/gconv.h
+	<features.h>
+	<bits/types/__mbstate_t.h>
+	<bits/types/wint_t.h>
+	<stddef.h>
+
+1523909660 /usr/include/bits/libio-ldbl.h
+
+1523909660 /usr/include/bits/stdio_lim.h
+
+1523909660 /usr/include/bits/sys_errlist.h
+
+1523909660 /usr/include/bits/getopt_posix.h
+	<bits/getopt_core.h>
+
+1523909660 /usr/include/bits/getopt_core.h
+
+1523909660 /usr/include/bits/stdio.h
+
+1523909660 /usr/include/bits/stdio2.h
+
+1523909660 /usr/include/bits/stdio-ldbl.h
+
+1523909660 /usr/include/assert.h
+	<features.h>
+
+1574807839 source:/home/haziel/Programs/PDI/pdi_terceiro_trabalho/RgbImage.cpp
+	"RgbImage.h"
+
+1523909660 /usr/include/math.h
+	<bits/libc-header-start.h>
+	<bits/types.h>
+	<bits/math-vector.h>
+	<bits/floatn.h>
+	<bits/flt-eval-method.h>
+	<bits/fp-logb.h>
+	<bits/fp-fast.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls-helper-functions.h>
+	<bits/mathcalls.h>
+	<bits/iscanonical.h>
+	<bits/mathinline.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+	<bits/math-finite.h>
+
+1523909660 /usr/include/bits/math-vector.h
+	<bits/libm-simd-decl-stubs.h>
+
+1523909660 /usr/include/bits/libm-simd-decl-stubs.h
+
+1523909660 /usr/include/bits/flt-eval-method.h
+
+1523909660 /usr/include/bits/fp-logb.h
+
+1523909660 /usr/include/bits/fp-fast.h
+
+1523909660 /usr/include/bits/mathcalls-helper-functions.h
+
+1523909660 /usr/include/bits/mathcalls.h
+
+1523909660 /usr/include/bits/iscanonical.h
+
+1523909660 /usr/include/bits/mathinline.h
+
+1523909660 /usr/include/bits/math-finite.h
+
