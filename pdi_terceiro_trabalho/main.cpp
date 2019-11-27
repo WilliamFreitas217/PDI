@@ -1,42 +1,27 @@
+#include <GL/gl.h>
 #include <GL/glut.h>
-#include <math.h>      // For math routines (such as sqrt & trig).
 #include "RgbImage.h"
 
-GLfloat xRotated, yRotated, zRotated;
-GLdouble radius=2;
-GLfloat qaBlack[] = {0.0, 0.0, 0.0, 1.0}; //Black Color
-GLfloat qaGreen[] = {1.0, 0.0, 0.0, 1.0}; //Green Color
-GLfloat qaWhite[] = {1.0, 1.0, 1.0, 1.0}; //White Color
-GLfloat qaRed[] = {1.0, 0.0, 0.0, 1.0}; //Red Color
+//angle of rotation
+GLfloat angle = 0.0;
 
-    // Set lighting intensity and color
-GLfloat qaAmbientLight[]    = {0.1, 0.1, 0.1, 1.0};
-GLfloat qaDiffuseLight[]    = {1, 1, 1, 1.0};
-GLfloat qaSpecularLight[]    = {1.0, 1.0, 1.0, 1.0};
-GLfloat emitLight[] = {0.9, 0.9, 0.9, 0.01};
-GLfloat Noemit[] = {0.0, 0.0, 0.0, 1.0};
-    // Light source position
-GLfloat qaLightPosition[]    = {0, 0, 0, 1};// Positional Light
-GLfloat qaLightDirection[]    = {1, 1, 1, 0};// Directional Light
+//diffuse light color variables
+GLfloat dlr = 1.0;
+GLfloat dlg = 1.0;
+GLfloat dlb = 1.0;
+
+//ambient light color variables
+GLfloat alr = 1.0;
+GLfloat alg = 1.0;
+GLfloat alb = 1.0;
+
+//light position variables
+GLfloat lx = 0.0;
+GLfloat ly = 0.0;
+GLfloat lz = 1.0;
+GLfloat lw = 0.0;
+
 GLuint  texture[1];
-
-void display(void);
-void reshape(int x, int y);
-
-void idleFunc(void)
-{
-        if ( zRotated > 360.0 ) {
-         zRotated -= 360.0*floor(zRotated/360.0);   // Don't allow overflow
-      }
-
-          if ( yRotated > 360.0 ) {
-         yRotated -= 360.0*floor(yRotated/360.0);   // Don't allow overflow
-      }
-     zRotated += 2;
-     yRotated +=2;
-
-    display();
-}
 
 void loadTextureFromFile(char *filename,int index)
 {
@@ -64,88 +49,21 @@ void loadTextureFromFile(char *filename,int index)
 
 }
 
-void initLighting()
-{
+//draw the cube
+void cube (void) {
+    glRotatef(angle, 1.0, 0.0, 0.0); //rotate on the x axis
+    glRotatef(angle, 0.0, 1.0, 0.0); //rotate on the y axis
+    glRotatef(angle, 0.0, 0.0, 1.0); //rotate on the z axis
 
-    // Enable lighting
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
-     // Set lighting intensity and color
-       glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
-     glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
-     glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
-    ////////////////////////////////////////////////
-
-
-}
-void keyboard(unsigned char key, int x, int y)
-{
-
-
-     if (key == 'l' || key == 'L')
-    {
-          glEnable(GL_LIGHTING);
-    }
-    else if (key == 'd' || key == 'D')
-    {
-        glDisable(GL_LIGHTING);
-    }
-
-}
-
-char* filename[] = {"/home/haziel/Programs/PDI/pdi_terceiro_trabalho/Red_Bricks_512x512.bmp",
-                    "/home/haziel/Programs/PDI/pdi_terceiro_trabalho/TexturesCom_RooftilesCeramic0066_4_M.bmp",
-                    "/home/haziel/Programs/PDI/pdi_terceiro_trabalho/TexturesCom_DoorsWoodSingleOld0243_1_M.bmp"};
-
-int main (int argc, char **argv)
-{
-    glutInit(&argc, argv);
-     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
-    glutInitWindowSize(350,350);
-    glutCreateWindow("Teapot -");
-    initLighting();
-    for ( int  i=0;i<3;i++)
-   {
-      loadTextureFromFile(filename[i], i);
-   }
-
-    xRotated = yRotated = zRotated = 0.0;
-
-    glutIdleFunc(idleFunc);
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard); // Register keyboard callback
-    glutReshapeFunc(reshape);
-    glutMainLoop();
-    return 0;
-}
-
-void display(void)
-{
-   glMatrixMode(GL_MODELVIEW);
-   // clear the drawing buffer.
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   // clear the identity matrix.
-   glLoadIdentity();
-   glTranslatef(0.0,0.0,-20.0);
-   glPushMatrix();
-   glTranslatef(0.0,0.0,0);
-   // Set material properties
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, qaRed);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, qaRed);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, qaWhite);
-   glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 1);
-
-   glEnable(GL_TEXTURE_2D);
-   glBindTexture(GL_TEXTURE_2D, texture[0]);
-   glLoadIdentity();
-   glTranslatef(-0.5,-0.5,-4);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture[0]);
+    glLoadIdentity();
+    glTranslatef(-0.5, -0.5, -4);
    //glRotatef(yRotated, 0, 1, 0);
-   //   glRotatef(zRotated, 0, 0, 1);
+   //glRotatef(zRotated, 0, 0, 1);
 
+   glPushMatrix();
    /* main rec */
-   // glClear (GL_COLOR_BUFFER_BIT);
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.1, 0.0);
     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.1, 0.0);
@@ -162,61 +80,61 @@ void display(void)
     glEnd();
 
     /* left rec */
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.1, 0.5);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f (0.2, 0.1, 0.0);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f (0.2, 0.575, 0.0);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.575, 0.5);
-    glEnd();
+     glBegin(GL_POLYGON);
+     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.1, 0.5);
+     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.2, 0.1, 0.0);
+     glTexCoord2f(1.0f, 1.0f); glVertex3f (0.2, 0.575, 0.0);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.575, 0.5);
+     glEnd();
 
     /* right rec */
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f (0.9, 0.1, 0.5);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.1, 0.0);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.575, 0.0);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f (0.9, 0.575, 0.5);
-    glEnd();
+     glBegin(GL_POLYGON);
+     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.9, 0.1, 0.5);
+     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.1, 0.0);
+     glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.575, 0.0);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f (0.9, 0.575, 0.5);
+     glEnd();
 
 
     /* left tri */
-    glBegin(GL_TRIANGLES);
-    glVertex3f (0.9, 0.575, 0.0);
-    glVertex3f (0.9, 0.575, 0.5);
-    glVertex3f (0.9, 0.8, 0.25);
-    glEnd();
+     glBegin(GL_TRIANGLES);
+     glVertex3f (0.9, 0.575, 0.0);
+     glVertex3f (0.9, 0.575, 0.5);
+     glVertex3f (0.9, 0.8, 0.25);
+     glEnd();
 
     /* right tri */
-    glBegin(GL_TRIANGLES);
-    glVertex3f (0.2, 0.575, 0.0);
-    glVertex3f (0.2, 0.575, 0.5);
-    glVertex3f (0.2, 0.8, 0.25);
-    glEnd();
+     glBegin(GL_TRIANGLES);
+     glVertex3f (0.2, 0.575, 0.0);
+     glVertex3f (0.2, 0.575, 0.5);
+     glVertex3f (0.2, 0.8, 0.25);
+     glEnd();
 
-   glBindTexture(GL_TEXTURE_2D, texture[1]);
+    glBindTexture(GL_TEXTURE_2D, texture[1]);
     /* roof */
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.575, 0.0);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.575, 0.0);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.8, 0.25);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.8, 0.25);
-    glEnd();
+     glBegin(GL_POLYGON);
+     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.575, 0.0);
+     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.575, 0.0);
+     glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.8, 0.25);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.8, 0.25);
+     glEnd();
 
     /*back roof */
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.575, 0.5);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.575, 0.5);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.8, 0.25);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.8, 0.25);
-    glEnd();
+     glBegin(GL_POLYGON);
+     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.2, 0.575, 0.5);
+     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.9, 0.575, 0.5);
+     glTexCoord2f(1.0f, 1.0f); glVertex3f (0.9, 0.8, 0.25);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f (0.2, 0.8, 0.25);
+     glEnd();
 
-   glBindTexture(GL_TEXTURE_2D, texture[2]);
+    glBindTexture(GL_TEXTURE_2D, texture[2]);
     /* door */
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0f, 0.0f); glVertex3f (0.47, 0.105, 0.6);
-    glTexCoord2f(1.0f, 0.0f); glVertex3f (0.65, 0.105, 0.6);
-    glTexCoord2f(1.0f, 1.0f); glVertex3f (0.65, 0.46, 0.6);
-    glTexCoord2f(0.0f, 1.0f); glVertex3f (0.47, 0.46, 0.6);
-    glEnd();
+     glBegin(GL_POLYGON);
+     glTexCoord2f(0.0f, 0.0f); glVertex3f (0.47, 0.105, 0.6);
+     glTexCoord2f(1.0f, 0.0f); glVertex3f (0.65, 0.105, 0.6);
+     glTexCoord2f(1.0f, 1.0f); glVertex3f (0.65, 0.46, 0.6);
+     glTexCoord2f(0.0f, 1.0f); glVertex3f (0.47, 0.46, 0.6);
+     glEnd();
 
     /* window 1 */
     glBegin(GL_POLYGON);
@@ -233,38 +151,93 @@ void display(void)
     glVertex3f (0.38, 0.4,0.6);
     glVertex3f (0.27, 0.4,0.6);
     glEnd();
-
     glPopMatrix();
+}
 
-
-
-    glPushMatrix();
-    glRotatef(yRotated,0.0,1.0,0.0);
-    glTranslatef(5.0,0.0,0.0);
-     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emitLight);   // Make sphere glow (emissive)
-     glutSolidSphere(radius/6,25,25);
-     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, Noemit);
-    glPopMatrix();
-
-    glPushMatrix();
-    glRotatef(-yRotated,0.0,1.0,0.0);
-    glTranslatef(5.0,0.0,0.0);
-      glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
-    glPopMatrix();
-
-
-    glFlush();
-    glutSwapBuffers();
+void init (void) {
+    glEnable (GL_DEPTH_TEST); //enable the depth testing
+    glEnable (GL_LIGHTING); //enable the lighting
+    glEnable (GL_LIGHT0); //enable LIGHT0, our Diffuse Light
+    glEnable (GL_LIGHT1); //enable LIGHT1, our Ambient Light
+    glShadeModel (GL_SMOOTH); //set the shader to smooth shader
 
 }
 
-void reshape(int x, int y)
-{
-    if (y == 0 || x == 0) return;
-    glMatrixMode(GL_PROJECTION);
+void display (void) {
+    glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
+    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
     glLoadIdentity();
+    GLfloat DiffuseLight[] = {dlr, dlg, dlb}; //set DiffuseLight [] to the specified values
+    GLfloat AmbientLight[] = {alr, alg, alb}; //set AmbientLight [] to the specified values
+    glLightfv (GL_LIGHT0, GL_DIFFUSE, DiffuseLight); //change  the light accordingly
+    glLightfv (GL_LIGHT1, GL_AMBIENT, AmbientLight); //change  the light accordingly
+    GLfloat LightPosition[] = {lx, ly, lz, lw}; //set the LightPosition to the specified values
+    glLightfv (GL_LIGHT0, GL_POSITION, LightPosition); //change the light accordingly
+    gluLookAt (0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); //camera position, x,y,z, looking at x,y,z, Up Positions of the camera
+    cube(); //call the cube drawing function
+    glutSwapBuffers(); //swap the buffers
+    angle++; //increase the angle
+}
 
-    gluPerspective(39.0,(GLdouble)x/(GLdouble)y,0.6,40.0);
-    glMatrixMode(GL_MODELVIEW);
-    glViewport(0,0,x,y);  //Use the whole window for rendering
+void reshape (int w, int h) {
+    glViewport (0, 0, (GLsizei)w, (GLsizei)h); //set the viewport  to the current window specifications
+    glMatrixMode (GL_PROJECTION); //set the matrix to projection
+
+    glLoadIdentity ();
+    gluPerspective (60, (GLfloat)w / (GLfloat)h, 1.0, 100.0); //set the perspective (angle of sight, width, height, , depth)
+    glMatrixMode (GL_MODELVIEW); //set the matrix back to model
+
+}
+
+void keyboard (unsigned char key, int x, int y) {
+    if (key=='r') {
+        dlr = 1.0; //change light to red
+        dlg = 0.0;
+        dlb = 0.0;
+    }
+    if (key=='g') {
+        dlr = 0.0; //change light to green
+        dlg = 1.0;
+        dlb = 0.0;
+    }
+    if (key=='b') {
+        dlr = 0.0; //change light to blue
+        dlg = 0.0;
+        dlb = 1.0;
+    }
+    if (key=='w') {
+        ly += 10.0; //move the light up
+    }
+    if (key== 's') {
+        ly -= 10.0; //move the light down
+    }
+    if (key=='a') {
+        lx -= 10.0; //move the light left
+    }
+    if (key=='d') {
+        lx += 10.0; //move the light right
+    }
+}
+
+char* filename[] = {"/home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/Red_Bricks_512x512.bmp",
+                    "/home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/TexturesCom_RooftilesCeramic0066_4_M.bmp",
+                    "/home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/TexturesCom_DoorsWoodSingleOld0243_1_M.bmp"};
+
+int main (int argc, char **argv) {
+    glutInit (&argc, argv);
+    glutInitDisplayMode (GLUT_DOUBLE | GLUT_DEPTH); //set the display to Double buffer, with depth
+    glutInitWindowSize (500, 500); //set the window size glutInitWindowPosition (100, 100); //set the position of the window
+    glutCreateWindow ("A basic OpenGL Window"); //the caption  of the window
+    init (); //call the init function
+    for ( int  i=0;i<3;i++)
+   {
+      loadTextureFromFile(filename[i], i);
+   }
+    glutDisplayFunc (display); //use the display function to draw everything
+    glutIdleFunc (display); //update any variables in display,  display can be changed to anyhing, as long as you move the variables to be updated, in this case, angle++;
+    glutReshapeFunc (reshape); //reshape the window accordingly
+
+    glutKeyboardFunc (keyboard); //check the keyboard
+    glutMainLoop (); //call the main loop
+    return 0;
 }

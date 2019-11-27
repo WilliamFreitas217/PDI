@@ -1,0 +1,349 @@
+#include <windows.h>
+#include <stdio.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <signal.h>
+#include <math.h>
+#include <iostream>
+#include <stdlib.h>
+
+int angtri; 
+int angico=180; 
+float rom=-1, ram=180, i=0, o=0;
+GLUquadricObj *diskobj;
+int r1=255, g1=255, b1=164;
+int r2=0, g2=255, b2=184;
+float r3=0.6, g3=0.0, b3=0.3, a3=0.6;
+float r4=0.0, g4=0.5, b4=1.0, a4=1.0;
+int x, y;
+float posx=0.0, posy=0.0;
+int submenu, submenu2, wire=0;
+
+
+
+void sph_initalize(void);
+void sph_draw(void);
+void sph_update(void);
+void animate(void);
+void belt_makeIcoMaterial(void);
+void sph_make_light1(void);
+void sph_make_light2(void);
+void special(int key, int x, int y);
+void mouse(int x, int y);
+void choice_selected(int value);
+void background(int value);
+void icosahedron(int value);
+void Icosa(void);
+
+/////////////////////////////////////////
+int main(int argc, char* argv[])
+{
+glutInit(&argc, argv);
+glutInitDisplayMode(GLUT_DOUBLE |GLUT_RGB|GLUT_DEPTH);
+glutInitWindowSize(200, 200);
+glutInitWindowPosition(100, 100);
+glutCreateWindow("AD408 Final");
+glutDisplayFunc(sph_draw);
+sph_initalize();
+sph_update();
+glutIdleFunc(animate);
+glutMainLoop();
+}
+////////////////////////////////////////
+void animate(void){
+sph_update();
+glutPostRedisplay();	
+}
+
+void sph_initalize(void)
+{
+diskobj=gluNewQuadric();
+submenu=glutCreateMenu(background);
+glutAddMenuEntry("Default Background", 1);
+glutAddMenuEntry("Light Background", 2);
+glutAddMenuEntry("Dark Background", 3);
+submenu2=glutCreateMenu(icosahedron);
+glutAddMenuEntry("Set Icosahedron at 0,0", 4);
+glutAddMenuEntry("Solid Mode", 5);
+glutAddMenuEntry("Wireframe Mode", 6);
+glutCreateMenu(choice_selected);
+glutAddSubMenu("Icosahedron", submenu2);
+glutAddSubMenu("Background", submenu);
+glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+}
+
+void sph_draw(void)
+{
+	glClearColor(r4, g4, b4, a4);
+	
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+glColor3ub(r1, g1, b1);
+glPushMatrix();
+	glRotatef(angtri, 0.0, 0.0, 1.0);
+	glBegin(GL_POLYGON);
+		glVertex2f(0.0, 0.0);
+		glVertex2f(0.5, -5.0);
+		glVertex2f(-0.5, -5.0);
+	glEnd();
+glPopMatrix();
+
+glColor3ub(r2, g2, b2);
+glPushMatrix();
+	glRotatef(-angtri, 0.0, 0.0, 1.0);
+	glBegin(GL_POLYGON);
+		glVertex2f(0.0, 0.0);
+		glVertex2f(0.5, -5.0);
+		glVertex2f(-0.5, -5.0);
+	glEnd();
+glPopMatrix();
+
+glColor4f(r3, b3, g3, a3);
+gluDisk(diskobj, i/100, o/100, 25, 5);
+
+
+glColor4f(0.5, 0.0, 0.0, 0.3);
+glPushMatrix();
+	glTranslatef(posx/1000, posy/1000, 0.0);
+	glTranslatef((cos(rom*3.1416/4)/4), (sin(rom*3.1416/4)/4), 0.0);
+	glRotatef(-angico, 1.0, -1.0, 1.0);
+	glPushMatrix();
+		glTranslatef(-0.2, 0.2, 0.0);
+		glScalef(0.5, 0.5, 0.5);
+		glutSolidIcosahedron();
+	glPopMatrix();
+glPopMatrix();
+
+glColor4f(0.0, 0.0, 0.5, 0.3);
+glPushMatrix();
+	glTranslatef(posx/1000, posy/1000, 0.0);
+	glTranslatef((-cos(rom*3.1416/4)/4), (-sin(rom*3.1416/4)/4), 0.0);
+	glRotatef(-angico, 1.0, -1.0, 1.0);
+	glPushMatrix();
+		glTranslatef(0.0, -0.2, 0.0);
+		glScalef(0.5, 0.5, 0.5);
+		glutSolidIcosahedron();
+	glPopMatrix();
+glPopMatrix();
+
+glColor4f(0.0, 0.5, 0.0, 0.3);
+glPushMatrix();
+	glTranslatef(posx/1000, posy/1000, 0.0);
+	glTranslatef((cos(rom*3.1416/4)/4), (sin(rom*3.1416/4)/4), 0.0);
+	glRotatef(-angico, 1.0, -1.0, 1.0);
+	glPushMatrix();
+		glTranslatef(0.2, 0.2, 0.0);
+		glScalef(0.5, 0.5, 0.5);
+		glutSolidIcosahedron();
+	glPopMatrix();
+glPopMatrix();
+
+glEnable(GL_DEPTH_TEST);
+glPushMatrix();
+	glRotatef(ram, 0.0, 0.0, 1.0);
+	glTranslatef(4.0, 0.0, -2.0);
+	glTranslatef((-cos((rom+180)*3.1416/4)/4), (-sin((rom+180)*3.1416/4)/4) , 0.0);
+	sph_make_light1();
+glPopMatrix();
+
+glPushMatrix();
+	glTranslatef(posx/100, posy/100, 0.0);
+	glRotatef(-angico, 1.0, -1.0, 1.0);
+	belt_makeIcoMaterial();
+	glScalef(0.5, 0.5, 0.5);
+	Icosa();
+glPopMatrix();
+glDisable(GL_LIGHTING);
+glDisable(GL_LIGHT0);
+glDisable(GL_NORMALIZE);
+glDisable(GL_DEPTH_TEST);
+
+glutSpecialFunc(special);
+glutMotionFunc(mouse);
+
+	glutSwapBuffers();
+}
+
+void sph_update(void)
+{
+angtri=angtri+5;
+if(angtri==360)
+	angtri=0;
+angico=angico+2;
+if(angico==360)
+	angico=0;
+rom=rom+0.1;
+if(rom==1)
+	rom=-1;
+ram=ram+3.5;
+if(ram==360)
+	ram=0;
+if(o<=140){
+	o=o+10;
+	}
+else{
+	i=i+10;
+	}
+
+if(i>=140 && o>=140){
+	i=0;
+	o=0;
+}
+
+
+// CAMERA STUFF
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	
+	gluPerspective(40.0, 1.0, .1, 200);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
+		
+		gluLookAt((cos(rom*3.1416/4)/4), (sin(rom*3.1416/4)/4), -3.0, (cos(rom*3.1416/4)/4), (sin(rom*3.1416/4)/4), 0, 0, 1, 0);
+
+	
+}
+
+
+
+
+
+
+
+
+void belt_makeIcoMaterial(void)
+{
+    GLfloat emission[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat ambient[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat diffuse[] = {1.0, 1.0, 0.0, 1.0};
+    GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat shiness[] = {70.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION,emission );
+    glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,diffuse  );
+    glMaterialfv(GL_FRONT, GL_SPECULAR,specular );
+    glMaterialfv(GL_FRONT, GL_SHININESS,shiness );
+    
+    
+}
+
+void sph_make_light1(void)
+{
+GLfloat light_ambient[] = {0.0, 0.0, 0.0, 1.0};  
+GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};  
+GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};  
+GLfloat light_position[] = {0.0, 0.0, 0.0, 1.0};
+glLightfv(GL_LIGHT0, GL_AMBIENT,light_ambient);
+glLightfv(GL_LIGHT0, GL_DIFFUSE,light_diffuse);
+glLightfv(GL_LIGHT0, GL_SPECULAR,light_specular);
+glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+glEnable(GL_LIGHTING);
+glEnable(GL_LIGHT0);
+glEnable(GL_NORMALIZE);
+}
+
+
+
+void special(int key, int x, int y){
+
+	if(key==GLUT_KEY_F1){
+		r1=255;
+		g1=255;
+		b1=164;
+		r2=0;
+		g2=255;
+		b2=184;
+		r3=0.6;
+		g3=0.0;
+		b3=0.3;
+		a3=0.6;
+		r4=0.0;
+		g4=0.5;
+		b4=1.0;
+		a4=1.0;
+	}
+
+	if(key==GLUT_KEY_F2){
+		r1=255;
+		g1=155;
+		b1=255;
+		r2=255;
+		g2=255;
+		b2=0;
+		r3=0.0;
+		g3=0.6;
+		b3=0.3;
+		a3=0.6;
+		r4=1.0;
+		g4=1.0;
+		b4=0.5;
+		a4=1.0;
+	}
+
+	if(key==GLUT_KEY_F3){
+		r1=255;
+		g1=155;
+		b1=255;
+		r2=255;
+		g2=255;
+		b2=100;
+		r3=1.0;
+		g3=0.8;
+		b3=0.9;
+		a3=0.6;
+		r4=0.2;
+		g4=0.0;
+		b4=0.1;
+		a4=1.0;
+	}
+
+	if(key==GLUT_KEY_F12){
+		posx=0.0;
+		posy=0.0;
+	}
+}
+
+
+void mouse(int x, int y){
+
+posx=-((x-100));
+posy=-((y-100));
+
+}
+
+
+void choice_selected(int value){
+
+		
+	glutPostRedisplay();
+}
+
+void background(int value){
+		if(value==1) special(1, 0, 0);
+		if(value==2) special(2, 0, 0);
+		if(value==3) special(3, 0, 0);	
+	
+	glutPostRedisplay();
+}
+
+void icosahedron(int value){
+		if(value==4) special(12, 0, 0);
+		if(value==5) wire=0;
+		if(value==6) wire=1;
+	glutPostRedisplay();
+}
+
+void Icosa(void){
+	if(wire==1)
+	glutWireIcosahedron();
+	else
+	glutSolidIcosahedron();
+}

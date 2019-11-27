@@ -364,3 +364,15 @@
 
 1523909660 /usr/include/bits/math-finite.h
 
+1574870386 source:/home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/RgbImage.cpp
+	"RgbImage.h"
+
+1574870386 /home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/RgbImage.h
+	<stdio.h>
+	<assert.h>
+
+1574873074 source:/home/indtusuario/UEA/PDI/pdi_terceiro_trabalho/main.cpp
+	<GL/glut.h>
+	<math.h>
+	"RgbImage.h"
+
